@@ -1,0 +1,25 @@
+amazon: &amazon
+  aws:
+    ses:
+      access_key: TypeAccessKeyHere
+      secret_key: TypeSecretKeyHere
+
+development:
+  url: http://api.browsy.com
+  send_notifications: false
+  <<: *amazon
+
+test:
+  url: http://api.browsy.com
+  send_notifications: false
+  <<: *amazon
+
+staging:
+  url: http://api.browsy.com
+  send_notifications: false
+  <<: *amazon
+
+production:
+  url: http://api.browsy.com
+  send_notifications: true
+  <<: *amazon
