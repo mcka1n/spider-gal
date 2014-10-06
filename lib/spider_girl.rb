@@ -11,8 +11,7 @@ require "active_support/time"
 
 require 'spider_girl/configuration'
 require 'spider_girl/base'
-require 'spider_girl/notifier/mail'
-require 'blogs'
+#require 'blogs'
 
 module SpiderGirl
   def self.env
@@ -25,9 +24,7 @@ module SpiderGirl
 end
 
 # require /initializers
-Dir["#{spider_girl.root}/config/initializers/**/*.rb"].each {|f| load f}
+# Dir["#{spider_girl.root}/config/initializers/**/*.rb"].each {|f| load f}
 
 # workers
 Dir[File.expand_path('lib/workers/**/*.rb')].each{ |f| require f }
-
-
