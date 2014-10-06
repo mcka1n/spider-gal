@@ -17,7 +17,7 @@ class CreateProductWorker
                :buy_link => buy_link,
                :original_price => original_price,
                :current_price => current_price,
-               :brand_id => brand_id,
+               :brand => 'Browsy',
                :original_url => original_url
              }.to_json,
     :headers => { 'Content-Type' => 'application/json' } )
