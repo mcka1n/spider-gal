@@ -4,13 +4,19 @@ require 'open-uri'
 class PolyvoreIndexWorker
   include Sidekiq::Worker
 
-  def perform(page)
+  def perform(page = nil)
     # this string is the browser agent for Safari running on a Mac
     browser = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2062.124 Safari/537.36"
 
+    if !page.nil?
+      blog_url = "http://www.polyvore.com/?filter=fashion&p=#{page}"
+    else
+      blog_url = "http://www.polyvore.com/?filter=fashion"
+    end
+
     # create a new Nokogiri HTML document from the scraped URL and pass in the
     # browser agent as a second parameter
-    doc = Nokogiri::HTML(open('http://www.polyvore.com/?filter=fashion', 'User-Agent' => browser))
+    doc = Nokogiri::HTML(open(blog_url, 'User-Agent' => browser))
 
     # we are going to take every list inside the main grid container
     lis = doc.css('.layout_grid li')
