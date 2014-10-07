@@ -45,7 +45,7 @@ class PolyvoreProductWorker
                                           buy_link,
                                           price,
                                           price,
-                                          ?,
+                                          'Browsy',
                                           link_to_scrape)
 
       end
