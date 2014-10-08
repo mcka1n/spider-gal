@@ -37,7 +37,8 @@ class PolyvoreProductWorker
             buy_link = li.at_css('.grid_item .under .price_and_link a').get_attribute('href').to_s
           end
         end
-        p "-- [#{counter}]: #{brand_product_name} @ #{price}"
+
+        SpiderGirl.logger.debug "[spider-girl] PolyvoreProductWorker --> [#{counter}]: #{brand_product_name} @ #{price}"
 
         # DO THE POST
         CreateProductWorker.perform_async(brand_product_name,

@@ -18,7 +18,7 @@ class PolyvoreIndexWorker
 
     # create a new Nokogiri HTML document from the scraped URL and pass in the
     # browser agent as a second parameter
-    Rails.logger.debug "[spider-girl] blog_url: #{blog_url}"
+    SpiderGirl.logger.debug "[spider-girl] blog_url: #{blog_url}"
     doc = Nokogiri::HTML(open(blog_url, 'User-Agent' => browser))
 
     # we are going to take every list inside the main grid container
@@ -34,7 +34,7 @@ class PolyvoreIndexWorker
        collage_link = li.at_css('.grid_item a').get_attribute('href').to_s
        collage_link.slice!(0..2)
        collage_link = "http://www.polyvore.com/" + collage_link
-       Rails.logger.debug "[spider-girl] Now queuing => link[#{counter}]: #{collage_link}"
+       SpiderGirl.logger.debug "[spider-girl] Now queuing => link[#{counter}]: #{collage_link}"
        link_array << collage_link
      end
     end
@@ -48,19 +48,19 @@ class PolyvoreIndexWorker
 
       if procesed_counter <= total_links
         if (current_hour >= 8 && current_hour <= 18)
-          Rails.logger.info "[spider-girl] Processing #{procesed_counter}/#{total_links}: #{link}"
+          SpiderGirl.logger.info "[spider-girl] Processing #{procesed_counter}/#{total_links}: #{link}"
           # technical sleep
           sleep(rand(2..3).minutes)
           PolyvoreProductWorker.perform_async(link)
           procesed_counter = procesed_counter + 1
         else
           # good night process :)
-          Rails.logger.info "[spider-girl] Good night Browsy, current time: #{Time.now}"
+          SpiderGirl.logger.info "[spider-girl] Good night Browsy, current time: #{Time.now}"
           sleep((current_hour - 8).hours)
         end
       else
         # it's over
-        Rails.logger.info "[spider-girl] link batch has been proccesed."
+        SpiderGirl.logger.info "[spider-girl] link batch has been proccesed."
       end
 
     end
