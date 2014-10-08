@@ -2,6 +2,10 @@ require 'nokogiri'
 require 'open-uri'
 require 'date'
 require 'time'
+require 'rake'
+
+load File.join('tasks', 'polyvore_index.rake')
+Bundler.require :default
 
 class PolyvoreIndexWorker
   include Sidekiq::Worker

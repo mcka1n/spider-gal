@@ -13,6 +13,7 @@ require 'spider_girl/configuration'
 require 'spider_girl/base'
 #require 'blogs'
 require 'logger'
+require 'bundler/setup'
 
 module SpiderGirl
   def self.env
