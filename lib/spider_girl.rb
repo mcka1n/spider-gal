@@ -12,6 +12,7 @@ require "active_support/time"
 require 'spider_girl/configuration'
 require 'spider_girl/base'
 #require 'blogs'
+require 'logger'
 
 module SpiderGirl
   def self.env
@@ -20,6 +21,11 @@ module SpiderGirl
 
   def self.root
     File.expand_path(Dir.pwd)
+  end
+
+  def self.logger
+    Logger.new(STDOUT)
+    Logger.new("log/#{SpiderGirl.env}.log", 10, 1024000)
   end
 end
 

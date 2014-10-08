@@ -47,7 +47,7 @@ class PolyvoreIndexWorker
       current_hour = (Time.now + Time.zone_offset("PDT")).hour    # in SF Time.
 
       if procesed_counter <= total_links
-        if current_hour >= 8 AND current_hour <= 18
+        if (current_hour >= 8 && current_hour <= 18)
           Rails.logger.info "[spider-girl] Processing #{procesed_counter}/#{total_links}: #{link}"
           # technical sleep
           sleep(rand(2..3).minutes)
