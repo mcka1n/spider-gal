@@ -48,7 +48,7 @@ namespace :polyvore do
       total_links = link_array.count
 
       link_array.each do |link|
-        current_hour = (Time.now + Time.zone_offset("PDT")).hour    # in SF Time.
+        current_hour = (Time.now.utc + Time.zone_offset("PDT")).hour    # in SF Time.
 
         if procesed_counter <= total_links
           if (current_hour >= 8 && current_hour <= 18)
@@ -60,7 +60,7 @@ namespace :polyvore do
           else
             # good night process :)
             SpiderGirl.logger.info "[spider-girl] Good night Browsy, current time: #{Time.now}"
-            sleep((current_hour - 8).hours)
+            sleep((current_hour - 8).abs.hours)
           end
         else
           # it's over
