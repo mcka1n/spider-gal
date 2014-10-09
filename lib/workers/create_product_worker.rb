@@ -1,5 +1,4 @@
 require 'rake'
-load File.join('tasks', 'polyvore_index.rake')
 
 Bundler.require :default
 
