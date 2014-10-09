@@ -10,7 +10,7 @@ class CreateProductWorker
     # improve this HTTParty call grr ...
 
     if SpiderGirl.env == 'production'
-      base_url = 'http://api.dev.browsy.com'
+      base_url = 'http://54.85.16.37:3000/v1/products'
     else
       base_url = 'http://localhost:3000/v1/products'
     end
