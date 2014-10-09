@@ -28,6 +28,12 @@ module SpiderGirl
     Logger.new(STDOUT)
     Logger.new("log/#{SpiderGirl.env}.log", 10, 1024000)
   end
+
+  def self.persist_to_file links_array
+    File.open("log/polyvore_index_links.txt", "w+") do |f|
+      f.puts(links_array)
+    end
+  end
 end
 
 # require /initializers

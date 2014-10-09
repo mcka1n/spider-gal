@@ -45,6 +45,7 @@ namespace :polyvore do
 
       # now for each link, lets take it easy ...
       procesed_counter = 0
+      SpiderGirl.persist_to_file link_array     # save array to file.
       total_links = link_array.count
 
       link_array.each do |link|
@@ -59,12 +60,12 @@ namespace :polyvore do
             procesed_counter = procesed_counter + 1
           else
             # good night process :)
-            SpiderGirl.logger.info "[spider-girl] Good night Browsy, current time: #{Time.now}"
+            SpiderGirl.logger.info "[spider-girl] Pause signal. Good night Browsy, current time: #{Time.now}"
             sleep((current_hour - 8).abs.hours)
           end
         else
           # it's over
-          SpiderGirl.logger.info "[spider-girl] link batch has been proccesed."
+          SpiderGirl.logger.info "[spider-girl] Link batch has been proccesed."
         end
       end
     end
