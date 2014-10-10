@@ -72,11 +72,11 @@ namespace :spider_girl do
     deploy.execute do |config|
       <<-UPDATE
         sudo service spider_girl stop &&
-        cd ~/spider_girl &&
+        cd ~/spider-girl/ &&
         git stash &&
         git fetch &&
         git pull origin #{config.branch}  &&
-        bundle install --without development test --clean &&
+        bundle install --path=~/.gem --without development test --clean &&
         sudo service spider_girl start
       UPDATE
     end

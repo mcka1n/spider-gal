@@ -14,9 +14,9 @@ namespace :polyvore do
       browser = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2062.124 Safari/537.36"
 
       if !page.nil? && page != 'page'
-        blog_url = "http://www.polyvore.com/?filter=fashion&p=#{page}"
+        blog_url = "http://www.polyvore.com/cgi/home?filter=creations&p=#{page}"
       else
-        blog_url = "http://www.polyvore.com/?filter=fashion"
+        blog_url = "http://www.polyvore.com/cgi/home?filter=creations"
       end
 
       # create a new Nokogiri HTML document from the scraped URL and pass in the
