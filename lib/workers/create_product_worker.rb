@@ -15,6 +15,7 @@ class CreateProductWorker
       base_url = 'http://localhost:3000/v1/products'
     end
 
+    SpiderGirl.logger.info "[spider-girl] CreateProductWorker, about to POST #{base_url}"
     # do not send post request if price is nil
     if !original_price.nil? && !current_price.nil?
       @result = HTTParty.post(base_url,
