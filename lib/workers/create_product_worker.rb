@@ -14,7 +14,8 @@ class CreateProductWorker
     else
       base_url = 'http://localhost:3000/v1/products'
     end
-
+    # todo, remove below line
+    base_url = 'http://54.85.16.37:3000/v1/products'
     SpiderGirl.logger.info "[spider-girl] CreateProductWorker, about to POST #{base_url}"
     # do not send post request if price is nil
     if !original_price.nil? && !current_price.nil?
