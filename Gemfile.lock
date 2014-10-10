@@ -29,6 +29,7 @@ GEM
     nokogiri (1.6.3.1)
       mini_portile (= 0.6.0)
     rack (1.5.2)
+    rake (0.9.6)
     redis (3.1.0)
     redis-namespace (1.5.1)
       redis (~> 3.0, >= 3.0.4)
@@ -58,5 +59,6 @@ DEPENDENCIES
   httparty
   nokogiri
   rack
+  rake
   sidekiq
   sidetiq
