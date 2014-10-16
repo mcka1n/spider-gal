@@ -10,23 +10,31 @@ blog_url = "http://atlantic-pacific.blogspot.com"
 
 doc = Nokogiri::HTML(open(blog_url, 'User-Agent' => browser))
 
-# we are going to take every list inside the main grid container
-titles = doc.css('h3 a')
-# doc.css('.date-outer h3 a').count
+origin_url = ""
 
-titles.each do |title|
-  p title.content
-end
+containers = doc.css('.date-outer')
+containers.each do |container|
+  origin_url = container.at_css('h3 a').get_attribute('href').to_s
+  p origin_url
+  container.css('.post-body span a').each do |link|
+    product_url = link.get_attribute('href').to_s
+    # getting product name
+    product = Nokogiri::HTML(open(product_url, 'User-Agent' => browser))
+    title = product.at_css('title').content
 
+    # call shopstyle
+    result = SpiderGirl.ask_shopstyle_for title
 
-containers = doc.css('.post-body') # 4
-containers.each do |post|
-  p "----------------------"
-  p "#{post.css('span a')}"
-
-  post.css('span a').each do |link|
-    p "#{link.get_attribute('href').to_s}"
+    # DO THE POST
+    CreateProductWorker.perform_async(result[:name],
+                                      result[:image_url],
+                                      result[:buy_link],
+                                      result[:original_price],
+                                      result[:current_price],
+                                      result[:brand],
+                                      origin_url)
   end
-
-  p "----------------------"
 end
+
+# go to next page
+next_page = doc.at_css('.blog-pager-older-link').get_attribute('href').to_s

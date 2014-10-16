@@ -18,29 +18,5 @@ module SpiderGirl
       self.class.config
     end
 
-    def run!
-
-      begin
-        if block_given?
-          yield self
-        else
-          # call default run method
-          run
-        end
-      rescue Exception => e
-        puts e.message
-        puts e.backtrace
-        stop
-      end
-    end
-
-    def run
-      # To be implemented by child object
-    end
-
-    def url
-      config.url
-    end
-
   end
 end
