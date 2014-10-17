@@ -23,10 +23,11 @@ namespace :atlantic_pacific do
           containers = doc.css('.date-outer')
 
           containers.each do |container|
+            origin_url = containers.first.at_css('h3 a').get_attribute('href').to_s
             container.css('.post-body span a').each do |link|
               # technical sleep
               sleep(rand(2..3).minutes)
-              AtlanticPacificProductWorker.perform_async(link.get_attribute('href').to_s)
+              AtlanticPacificProductWorker.perform_async(link.get_attribute('href').to_s, origin_url)
             end
           end
 
