@@ -15,6 +15,7 @@ class AtlanticPacificProductWorker
     SpiderGirl.logger.info "[spider-girl] @AP, Asking Shopsense for product."
 
     # call shopstyle
+    sleep(rand(2..3)) # we don't want to freak out Shopsense right?
     result = SpiderGirl.ask_shopstyle_for product.at_css('title').content
 
     # DO THE POST
