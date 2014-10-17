@@ -24,13 +24,15 @@ namespace :atlantic_pacific do
 
           containers.each do |container|
             origin_url = container.at_css('h3 a').get_attribute('href').to_s
+
+            SpiderGirl.logger.debug "[spider-girl] @AP link with #{container.css('.post-body span a').count} products, from #{origin_url}"
             container.css('.post-body span a').each do |link|
               AtlanticPacificProductWorker.perform_async(link.get_attribute('href').to_s, origin_url)
             end
-          end
 
-          # technical sleep
-          sleep(rand(2..3).minutes)
+            # technical sleep
+            sleep(rand(2..3).minutes)
+          end
 
           # go to next page
           count = count + 1
