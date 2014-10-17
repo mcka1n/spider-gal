@@ -25,11 +25,12 @@ namespace :atlantic_pacific do
           containers.each do |container|
             origin_url = containers.first.at_css('h3 a').get_attribute('href').to_s
             container.css('.post-body span a').each do |link|
-              # technical sleep
-              sleep(rand(2..3).minutes)
               AtlanticPacificProductWorker.perform_async(link.get_attribute('href').to_s, origin_url)
             end
           end
+
+          # technical sleep
+          sleep(rand(2..3).minutes)
 
           # go to next page
           count = count + 1
