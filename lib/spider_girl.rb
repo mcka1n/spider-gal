@@ -14,6 +14,7 @@ require 'spider_girl/base'
 #require 'blogs'
 require 'logger'
 require 'bundler/setup'
+require 'shopsense'
 
 module SpiderGirl
   def self.env
@@ -34,6 +35,32 @@ module SpiderGirl
       f.puts(links_array)
     end
   end
+
+  def self.ask_shopstyle_for product_name
+    initialize_shopstyle
+    api = Shopsense.api
+    result = []
+    products_found = api.products({ :query => "#{product_name}" })
+
+    if products_found[:metadata][:total] > 0
+      result = {:name => products_found[:products].first[:name],
+                :image_url => products_found[:products].first[:image][:sizes][:Large][:url],
+                :buy_link => products_found[:products].first[:clickUrl],
+                :original_price => products_found[:products].first[:priceLabel],
+                :current_price => products_found[:products].first[:salePriceLabel] || products_found[:products].first[:priceLabel],
+                :brand => products_found[:products].first[:brand][:name]
+               }
+    end
+
+    result
+  end
+
+  protected
+
+  def self.initialize_shopstyle
+    Shopsense.configuration = YAML.load_file('config/shopsense.yml')
+  end
+
 end
 
 # require /initializers
