@@ -23,14 +23,11 @@ namespace :galmeetsglam do
           containers = doc.css('.entry-content-short .mobile-hide a')
 
           containers.each do |container|
-            # ###########################
-            # TO DO
-            # ###########################
             origin_url = container.get_attribute('href').to_s
             # go to origin_url and get product links
 
             SpiderGirl.logger.debug "[spider-girl] @GalMeetsGlam link #{origin_url}"
-            ##GalMeetsGlamProductWorker.perform_async(origin_url)
+            GalMeetsGlamProductWorker.perform_async(origin_url)
 
             # technical sleep
             sleep(rand(2..3).minutes)
