@@ -38,7 +38,7 @@ class GalMeetsGlamProductWorker
                                         result[:brand],
                                         origin_url)
 
-      end
+      
     end
 
   end
