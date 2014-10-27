@@ -36,9 +36,9 @@ class GalMeetsGlamProductWorker
                                         result[:original_price],
                                         result[:current_price],
                                         result[:brand],
-                                        origin_url)
+                                        link_to_scrape)
 
-      
+
     end
 
   end
